@@ -16,12 +16,21 @@ function ToDo({ text, category, id }: IToDo) {
       ];
     });
   };
+  const deleteToDo = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setToDos(oldToDos => {
+      const targetIndex = oldToDos.findIndex(todo => todo.id === id);
+      const editToDos = [...oldToDos];
+      editToDos.splice(targetIndex, 1);
+      return editToDos;
+    });
+  };
   return (
     <li>
       <span>{text}</span>
       {category !== Categories.DOING &&<button name={Categories.DOING} onClick={onClick}>Doing</button>}
       {category !== Categories.TO_DO &&<button name={Categories.TO_DO} onClick={onClick}>To Do</button>}
       {category !== Categories.DONE && <button name={Categories.DONE} onClick={onClick}>Done</button>}
+      {<button onClick={deleteToDo}>Delete</button>}
     </li>
   );
 }
