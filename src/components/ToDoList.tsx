@@ -1,35 +1,42 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
 import CreateToDo from './CreateToDo';
 import CreateCategory from './CreateCategory';
-import { toDoSelector, categoryState, selectedCategory } from '../atoms'; 
-import ToDo from './ToDo';
-import React from 'react';
+import SelectCategory from './SelectCategory';
+import List from './List';
+import styled from 'styled-components';
 
+const Wrapper = styled.div`
+  padding: 50px;
+  max-width: 700px;
+  margin: 0 auto;
+`;
+const Title = styled.h1`
+  font-size: 40px;
+  line-height: 60px;
+  text-align: center;
+`;
+const AddForm = styled.div`
+  display: flex;
+`;
+const Label = styled.strong`
+  font-size: 18px;
+  min-width: 200px;
+  color: white;
+  line-height: 50px;
+`;
 function ToDoList() {
-
-  const toDos = useRecoilValue(toDoSelector);
-  const categories = useRecoilValue(categoryState);
-  const [category, setCategory] = useRecoilState(selectedCategory);
-  const onInput = (event:React.FormEvent<HTMLSelectElement>) => {
-    setCategory(event.currentTarget.value as any);
-  };
-  
   return (
-    <div>
-      <h1>To Dos</h1>
+    <Wrapper>
+      <Title>To Dos</Title>
       <hr />
-      <CreateCategory></CreateCategory>
+      <AddForm>
+        <Label>New category</Label>
+        <CreateCategory></CreateCategory>
+      </AddForm>
       <hr />
-      <select value={category} onInput={onInput}>
-        { categories.map(item => (
-          <option value={item.category} key={item.category}>
-            {item.category}
-          </option>
-         ))}
-      </select>
+      <SelectCategory />
       <CreateToDo />
-      { toDos?.map(toDo => <ToDo key={toDo.id} {...toDo}/>)}
-    </div>
+      <List />
+    </Wrapper>
   )
 }
 

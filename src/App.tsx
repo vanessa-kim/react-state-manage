@@ -56,12 +56,17 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: 'Source Sans Pro', sans-serif;
-    background-color: ${props => props.theme.bgColor};
+    background: ${props => props.theme.bgColor};
     color: ${props => props.theme.textColor};
+    height: 100vh;
   }
   a {
     text-decoration: none;
     color: inherit;
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid #fff;
   }
 `;
 
